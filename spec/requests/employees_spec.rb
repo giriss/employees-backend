@@ -52,17 +52,19 @@ RSpec.describe '/employees', type: :request do
 
   describe 'POST /create' do
     context 'with valid parameters' do
+      let(:do_request) { post employees_url, params: { employee: valid_attributes }, headers: valid_headers, as: :json }
+
       it 'creates a new Employee' do
-        expect do
-          post employees_url,
-               params: { employee: valid_attributes }, headers: valid_headers, as: :json
-        end.to change(Employee, :count).by(1)
+        expect { do_request }.to change(Employee, :count).by(1)
+      end
+
+      it 'responds with :create' do
+        do_request
+        expect(response).to have_http_status(:created)
       end
 
       it 'renders a JSON response with the new employee' do
-        post employees_url,
-             params: { employee: valid_attributes }, headers: valid_headers, as: :json
-        expect(response).to have_http_status(:created)
+        do_request
         expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
@@ -75,10 +77,15 @@ RSpec.describe '/employees', type: :request do
         end.to change(Employee, :count).by(0)
       end
 
-      it 'renders a JSON response with errors for the new employee' do
+      it 'responds with :unprocessable_entity' do
         post employees_url,
              params: { employee: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'renders a JSON response with errors for the new employee' do
+        post employees_url,
+             params: { employee: invalid_attributes }, headers: valid_headers, as: :json
         expect(response.content_type).to eq('application/json')
       end
     end
@@ -98,21 +105,33 @@ RSpec.describe '/employees', type: :request do
         skip('Add assertions for updated state')
       end
 
-      it 'renders a JSON response with the employee' do
+      it 'responds with :ok' do
         employee = Employee.create! valid_attributes
         patch employee_url(employee),
               params: { employee: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
+      end
+
+      it 'renders a JSON response with the employee' do
+        employee = Employee.create! valid_attributes
+        patch employee_url(employee),
+              params: { employee: new_attributes }, headers: valid_headers, as: :json
         expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
 
     context 'with invalid parameters' do
-      it 'renders a JSON response with errors for the employee' do
+      it 'responds with :unprocessable_entity' do
         employee = Employee.create! valid_attributes
         patch employee_url(employee),
               params: { employee: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'renders a JSON response with errors for the employee' do
+        employee = Employee.create! valid_attributes
+        patch employee_url(employee),
+              params: { employee: invalid_attributes }, headers: valid_headers, as: :json
         expect(response.content_type).to eq('application/json')
       end
     end
