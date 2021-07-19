@@ -9,7 +9,7 @@ class CreateEmployees < ActiveRecord::Migration[6.1]
       t.date :dob
       t.references :job_title, null: false, foreign_key: true
       t.integer :status
-      t.boolean :permanent
+      t.boolean :permanent, default: false
 
       t.timestamps
     end

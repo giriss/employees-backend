@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_07_19_185549) do
     t.date "dob"
     t.bigint "job_title_id", null: false
     t.integer "status"
-    t.boolean "permanent"
+    t.boolean "permanent", default: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["job_title_id"], name: "index_employees_on_job_title_id"
