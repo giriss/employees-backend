@@ -14,9 +14,9 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe '/employees', type: :request do
+RSpec.describe '/job_titles', type: :request do
   # This should return the minimal set of attributes required to create a valid
-  # Employee. As you add validations to Employee, be sure to
+  # JobTitle. As you add validations to JobTitle, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
     skip('Add a hash of attributes valid for your model')
@@ -28,7 +28,7 @@ RSpec.describe '/employees', type: :request do
 
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
-  # EmployeesController, or in your router and rack
+  # JobTitlesController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
     {}
@@ -36,48 +36,48 @@ RSpec.describe '/employees', type: :request do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      Employee.create! valid_attributes
-      get employees_url, headers: valid_headers, as: :json
+      JobTitle.create! valid_attributes
+      get job_titles_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      employee = Employee.create! valid_attributes
-      get employee_url(employee), as: :json
+      job_title = JobTitle.create! valid_attributes
+      get job_title_url(job_title), as: :json
       expect(response).to be_successful
     end
   end
 
   describe 'POST /create' do
     context 'with valid parameters' do
-      it 'creates a new Employee' do
+      it 'creates a new JobTitle' do
         expect do
-          post employees_url,
-               params: { employee: valid_attributes }, headers: valid_headers, as: :json
-        end.to change(Employee, :count).by(1)
+          post job_titles_url,
+               params: { job_title: valid_attributes }, headers: valid_headers, as: :json
+        end.to change(JobTitle, :count).by(1)
       end
 
-      it 'renders a JSON response with the new employee' do
-        post employees_url,
-             params: { employee: valid_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with the new job_title' do
+        post job_titles_url,
+             params: { job_title: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
 
     context 'with invalid parameters' do
-      it 'does not create a new Employee' do
+      it 'does not create a new JobTitle' do
         expect do
-          post employees_url,
-               params: { employee: invalid_attributes }, as: :json
-        end.to change(Employee, :count).by(0)
+          post job_titles_url,
+               params: { job_title: invalid_attributes }, as: :json
+        end.to change(JobTitle, :count).by(0)
       end
 
-      it 'renders a JSON response with errors for the new employee' do
-        post employees_url,
-             params: { employee: invalid_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with errors for the new job_title' do
+        post job_titles_url,
+             params: { job_title: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -90,28 +90,28 @@ RSpec.describe '/employees', type: :request do
         skip('Add a hash of attributes valid for your model')
       end
 
-      it 'updates the requested employee' do
-        employee = Employee.create! valid_attributes
-        patch employee_url(employee),
-              params: { employee: new_attributes }, headers: valid_headers, as: :json
-        employee.reload
+      it 'updates the requested job_title' do
+        job_title = JobTitle.create! valid_attributes
+        patch job_title_url(job_title),
+              params: { job_title: new_attributes }, headers: valid_headers, as: :json
+        job_title.reload
         skip('Add assertions for updated state')
       end
 
-      it 'renders a JSON response with the employee' do
-        employee = Employee.create! valid_attributes
-        patch employee_url(employee),
-              params: { employee: new_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with the job_title' do
+        job_title = JobTitle.create! valid_attributes
+        patch job_title_url(job_title),
+              params: { job_title: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
 
     context 'with invalid parameters' do
-      it 'renders a JSON response with errors for the employee' do
-        employee = Employee.create! valid_attributes
-        patch employee_url(employee),
-              params: { employee: invalid_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with errors for the job_title' do
+        job_title = JobTitle.create! valid_attributes
+        patch job_title_url(job_title),
+              params: { job_title: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -119,11 +119,11 @@ RSpec.describe '/employees', type: :request do
   end
 
   describe 'DELETE /destroy' do
-    it 'destroys the requested employee' do
-      employee = Employee.create! valid_attributes
+    it 'destroys the requested job_title' do
+      job_title = JobTitle.create! valid_attributes
       expect do
-        delete employee_url(employee), headers: valid_headers, as: :json
-      end.to change(Employee, :count).by(-1)
+        delete job_title_url(job_title), headers: valid_headers, as: :json
+      end.to change(JobTitle, :count).by(-1)
     end
   end
 end

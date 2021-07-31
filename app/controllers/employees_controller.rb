@@ -1,41 +1,43 @@
 # frozen_string_literal: true
 
 class EmployeesController < ApplicationController
+  before_action :authenticate
   before_action :set_employee, only: %i[show update destroy]
 
   # GET /employees
+  # GET /employees.json
   def index
     @employees = Employee.all
-
-    render json: @employees
   end
 
   # GET /employees/1
-  def show
-    render json: @employee
-  end
+  # GET /employees/1.json
+  def show; end
 
   # POST /employees
+  # POST /employees.json
   def create
     @employee = Employee.new(employee_params)
 
     if @employee.save
-      render json: @employee, status: :created, location: @employee
+      render :show, status: :created, location: @employee
     else
       render json: @employee.errors, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /employees/1
+  # PATCH/PUT /employees/1.json
   def update
     if @employee.update(employee_params)
-      render json: @employee
+      render :show, status: :ok, location: @employee
     else
       render json: @employee.errors, status: :unprocessable_entity
     end
   end
 
   # DELETE /employees/1
+  # DELETE /employees/1.json
   def destroy
     @employee.destroy
   end

@@ -14,9 +14,9 @@ require 'rails_helper'
 # of tools you can use to make these specs even more expressive, but we're
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
-RSpec.describe '/employees', type: :request do
+RSpec.describe '/users', type: :request do
   # This should return the minimal set of attributes required to create a valid
-  # Employee. As you add validations to Employee, be sure to
+  # User. As you add validations to User, be sure to
   # adjust the attributes here as well.
   let(:valid_attributes) do
     skip('Add a hash of attributes valid for your model')
@@ -28,7 +28,7 @@ RSpec.describe '/employees', type: :request do
 
   # This should return the minimal set of values that should be in the headers
   # in order to pass any filters (e.g. authentication) defined in
-  # EmployeesController, or in your router and rack
+  # UsersController, or in your router and rack
   # middleware. Be sure to keep this updated too.
   let(:valid_headers) do
     {}
@@ -36,48 +36,48 @@ RSpec.describe '/employees', type: :request do
 
   describe 'GET /index' do
     it 'renders a successful response' do
-      Employee.create! valid_attributes
-      get employees_url, headers: valid_headers, as: :json
+      User.create! valid_attributes
+      get users_url, headers: valid_headers, as: :json
       expect(response).to be_successful
     end
   end
 
   describe 'GET /show' do
     it 'renders a successful response' do
-      employee = Employee.create! valid_attributes
-      get employee_url(employee), as: :json
+      user = User.create! valid_attributes
+      get user_url(user), as: :json
       expect(response).to be_successful
     end
   end
 
   describe 'POST /create' do
     context 'with valid parameters' do
-      it 'creates a new Employee' do
+      it 'creates a new User' do
         expect do
-          post employees_url,
-               params: { employee: valid_attributes }, headers: valid_headers, as: :json
-        end.to change(Employee, :count).by(1)
+          post users_url,
+               params: { user: valid_attributes }, headers: valid_headers, as: :json
+        end.to change(User, :count).by(1)
       end
 
-      it 'renders a JSON response with the new employee' do
-        post employees_url,
-             params: { employee: valid_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with the new user' do
+        post users_url,
+             params: { user: valid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:created)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
 
     context 'with invalid parameters' do
-      it 'does not create a new Employee' do
+      it 'does not create a new User' do
         expect do
-          post employees_url,
-               params: { employee: invalid_attributes }, as: :json
-        end.to change(Employee, :count).by(0)
+          post users_url,
+               params: { user: invalid_attributes }, as: :json
+        end.to change(User, :count).by(0)
       end
 
-      it 'renders a JSON response with errors for the new employee' do
-        post employees_url,
-             params: { employee: invalid_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with errors for the new user' do
+        post users_url,
+             params: { user: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -90,28 +90,28 @@ RSpec.describe '/employees', type: :request do
         skip('Add a hash of attributes valid for your model')
       end
 
-      it 'updates the requested employee' do
-        employee = Employee.create! valid_attributes
-        patch employee_url(employee),
-              params: { employee: new_attributes }, headers: valid_headers, as: :json
-        employee.reload
+      it 'updates the requested user' do
+        user = User.create! valid_attributes
+        patch user_url(user),
+              params: { user: new_attributes }, headers: valid_headers, as: :json
+        user.reload
         skip('Add assertions for updated state')
       end
 
-      it 'renders a JSON response with the employee' do
-        employee = Employee.create! valid_attributes
-        patch employee_url(employee),
-              params: { employee: new_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with the user' do
+        user = User.create! valid_attributes
+        patch user_url(user),
+              params: { user: new_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:ok)
         expect(response.content_type).to match(a_string_including('application/json'))
       end
     end
 
     context 'with invalid parameters' do
-      it 'renders a JSON response with errors for the employee' do
-        employee = Employee.create! valid_attributes
-        patch employee_url(employee),
-              params: { employee: invalid_attributes }, headers: valid_headers, as: :json
+      it 'renders a JSON response with errors for the user' do
+        user = User.create! valid_attributes
+        patch user_url(user),
+              params: { user: invalid_attributes }, headers: valid_headers, as: :json
         expect(response).to have_http_status(:unprocessable_entity)
         expect(response.content_type).to eq('application/json')
       end
@@ -119,11 +119,11 @@ RSpec.describe '/employees', type: :request do
   end
 
   describe 'DELETE /destroy' do
-    it 'destroys the requested employee' do
-      employee = Employee.create! valid_attributes
+    it 'destroys the requested user' do
+      user = User.create! valid_attributes
       expect do
-        delete employee_url(employee), headers: valid_headers, as: :json
-      end.to change(Employee, :count).by(-1)
+        delete user_url(user), headers: valid_headers, as: :json
+      end.to change(User, :count).by(-1)
     end
   end
 end

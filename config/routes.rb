@@ -2,5 +2,8 @@
 
 Rails.application.routes.draw do
   resources :employees
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :job_titles, only: :index
+  resources :users, except: %i[index update] do
+    post '/login', on: :collection, action: :login
+  end
 end

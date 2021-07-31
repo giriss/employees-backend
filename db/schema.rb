@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_19_185549) do
+ActiveRecord::Schema.define(version: 2021_07_24_180525) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,7 +22,7 @@ ActiveRecord::Schema.define(version: 2021_07_19_185549) do
     t.date "dob"
     t.bigint "job_title_id", null: false
     t.integer "status"
-    t.boolean "permanent", default: false
+    t.boolean "permanent"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["job_title_id"], name: "index_employees_on_job_title_id"
@@ -31,6 +31,13 @@ ActiveRecord::Schema.define(version: 2021_07_19_185549) do
   create_table "job_titles", force: :cascade do |t|
     t.string "name"
     t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
